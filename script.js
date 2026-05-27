@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         answer: 0
      },
      { 
-        question: "Who fought in the battle that was later commemorated on 'Cinco De Mayo'?,}
+        question: "Who fought in the battle that was later commemorated on 'Cinco De Mayo'?",
         options: ["Mexico vs. Spain", "Mexico vs. France", "Mexico vs. USA", "Mexico vs. Germany"],
         answer: 1
      },
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 let currentQuestion = 0;
 let score = 0;
 
+const quizContainer = document.getElementById('quiz-container');
 const questionContainer = document.getElementById('question-container');
 const optionsContainer = document.getElementById('options-container');
 const scoreContainer = document.getElementById('score-container');
@@ -59,6 +60,34 @@ function selectOption(number) {
     }
     nextButton.disabled = false
     }
-}) 
 
+    function showScore() {
+        quizContainer.classList.add('hidden')
+        scoreContainer.classList.remove('hidden')
+        scoreText.innerHTML = 'Congratulations! Your Quiz is Complete.' + '<br> <br>' + 'Final Score: <strong>' + score + ' out of ' + questions.length + '</strong> <br> <br>' + '</strong> <strong style="font-size: 24px;">' + Math.round((score / questions.length) * 100) + '%</strong>'
+    }
 
+    function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        }
+        else {
+            showScore();
+        }
+    }
+
+    function restartQuiz() {
+        currentQuestion = 0;
+        score = 0;
+        quizContainer.classList.remove('hidden');
+        scoreContainer.classList.add('hidden');
+        loadQuestion();
+    }
+
+    nextButton.addEventListener('click', nextQuestion);
+    restartButton.addEventListener('click', restartQuiz);
+
+    loadQuestion();
+
+});
