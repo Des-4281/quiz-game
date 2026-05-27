@@ -4,17 +4,17 @@ document.addEventListener('DOMContentLoaded', () => {
     { 
         question: "What is the capital of Nebraska?",
         options: ["Lincoln", "Omaha", "Austin", "Denver"],
-        answer: "Lincoln"
+        answer: 0
      },
      { 
         question: "Who fought in the battle that was later commemorated on 'Cinco De Mayo'?,}
         options: ["Mexico vs. Spain", "Mexico vs. France", "Mexico vs. USA", "Mexico vs. Germany"],
-        answer: "Mexico vs. France"
+        answer: 1
      },
         { 
-            question: "Fill in the blank: A spiral is a ______ ",
+            question: "Fill in the blank with the most correct answer: A spiral is a ______ ",
             options: ["Spiral", "Broken circle", "Never-ending curved object", "Line"],
-            answer: "Line"
+            answer: 3
         }
 ];
 
@@ -29,8 +29,36 @@ const nextButton = document.getElementById('next-button');
 const restartButton = document.getElementById('restart-button');
 
 function loadQuestion() {
-    let currentQ = quizData[currentQuestion];
-    
+    let currentQ = questions[currentQuestion];
+    questionContainer.textContent = currentQ.question;
+    optionsContainer.textContent = '';
+    currentQ.options.forEach((question, number) => { 
+        let createButton = document.createElement('button')
+        createButton.textContent = question
+        createButton.addEventListener('click', () => { 
+        selectOption(number)
+    })
+    optionsContainer.appendChild(createButton)
+    })
+    nextButton.disabled = true
 }
-})
+
+function selectOption(number) {
+    let currentQ = questions[currentQuestion];
+    let optionButtons = optionsContainer.querySelectorAll('button')
+    optionButtons.forEach((answerOption) => {
+        answerOption.disabled = true
+    })
+    if (number === currentQ.answer) {
+        score++;
+        optionButtons[number].classList.add('correct')
+    } 
+    
+    else {
+        optionButtons[number].classList.add('incorrect')
+    }
+    nextButton.disabled = false
+    }
+}) 
+
 
