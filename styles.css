@@ -116,20 +116,20 @@ p {
     display: none;
 }
 
-.correct {
-    background-color: green !important;
-    color: white !important;
+#options-container button.correct {
+    background-color: green ;
+    color: white;
 }
 
-.incorrect {
-    background-color: red !important;
-    color: white !important;
+#options-container button.incorrect {
+    background-color: red;
+    color: white;
 }
 
-button.correct:hover {
+#options-container button.correct:hover {
     background-color: green;
 }
 
-button.incorrect:hover {
+#options-container button.incorrect:hover {
     background-color: red;
 }
